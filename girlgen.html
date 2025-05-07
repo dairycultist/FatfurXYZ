@@ -34,7 +34,8 @@
             });
 
             if (!response.ok) {
-                return "<span style='color: red;'>Network error</span>";
+                console.log(await response.json());
+                return "<span style='color: red;'>Network error. See console for details.</span>";
             }
             
             return (await response.json()).choices[0].message.content;
@@ -48,7 +49,7 @@
             generateButton.disabled = true;
 
             var bio = await promptText(key,
-                "I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc):"
+                "I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc): "
                 + document.getElementById("characterDetails").value
             );
 
