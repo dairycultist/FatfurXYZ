@@ -10,8 +10,6 @@
     </style>
     <script>
 
-        // I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual:
-
         async function promptText(key, prompt) {
 
             prompt = prompt.replaceAll("\"", "'");
@@ -51,11 +49,18 @@
             generateButton.disabled = true;
 
             var bio = await promptText(key,
-                "I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc): "
+                "I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc). Keep it brief but detailed and unique: "
                 + document.getElementById("characterDetails").value
             );
 
             document.getElementById("output").innerHTML = bio.replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
+
+            var imageGenPrompt = await promptText(key,
+                "I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
+                + bio
+            );
+
+            document.getElementById("output").innerHTML += "<h2>Image generation prompt</h2>" + imageGenPrompt;
 
             generateButton.disabled = false;
         }
