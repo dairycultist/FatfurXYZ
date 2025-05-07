@@ -10,10 +10,10 @@
     </style>
     <script>
 
-        // implement stable horde later https://github.com/dairycultist/stablehorde-generator-example/blob/main/index.html
-
         async function promptImage(key, prompt) {
-
+            // implement stable horde later https://github.com/dairycultist/stablehorde-generator-example/blob/main/index.html
+            
+            return "https://m.media-amazon.com/images/I/61Sz-RayqyL._AC_UF1000,1000_QL80_.jpg";
         }
         
         async function promptText(key, prompt) {
@@ -50,7 +50,7 @@
         async function generate() {
 
             const generateButton = document.getElementById("generateButton");
-            const keyText = document.getElementById("key").value;
+            const keyText = document.getElementById("keyText").value;
 
             generateButton.disabled = true;
 
@@ -73,12 +73,16 @@
                 document.getElementById("bioOutput").innerHTML = "<h2>Character bio</h2>" + bioSanitized;
             }
 
-            var imageGenPrompt = await promptText(keyText,
+            var imagePrompt = await promptText(keyText,
                 "I am going to give you a full biography about a character. Please give me a short list of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
                 + bio
             );
 
-            document.getElementById("imageOutput").innerHTML = "<h2>Image generation prompt</h2>" + imageGenPrompt.replaceAll("*", "");
+            document.getElementById("imagePromptOutput").innerHTML = imagePrompt.replaceAll("*", "");
+
+            var imageUrl = await promptImage("", "");
+
+            document.getElementById("imageOutput").src = imageUrl;
 
             generateButton.disabled = false;
         }
@@ -90,8 +94,12 @@
     <div style="flex: 1;">
         <a href="https://github.com/dairycultist/FatfurXYZ/blob/main/girlgen.html">see code</a>
         <p>
-            <label for="fname"><a href="https://openrouter.ai/">OpenRouter</a> Key:</label>
-            <input type="text" id="key">
+            <label for="keyImage"><a href="https://stablehorde.net/">AI Horde</a> API Key (optional):</label>
+            <input type="text" id="keyImage">
+        </p>
+        <p>
+            <label for="keyText"><a href="https://openrouter.ai/">OpenRouter</a> API Key:</label>
+            <input type="text" id="keyText">
         </p>
         <textarea id="characterDetails" style="width: 100%; height: 10em;" placeholder="Describe your character..."></textarea>
         <br>
@@ -100,7 +108,10 @@
 
     <div id="bioOutput" style="background: #eee; border: 1px solid black; padding: 1em; flex: 1;"></div>
 
-    <div id="imageOutput" style="flex: 1; font-family: monospace;"></div>
+    <div style="flex: 1;">
+        <img id="imageOutput" style="width: 100%;">
+        <div id="imagePromptOutput" style="font-family: monospace;"></div>
+    </div>
     
 </body>
 
