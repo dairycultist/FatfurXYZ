@@ -10,10 +10,16 @@
     </style>
     <script>
 
+        // implement stable horde later https://github.com/dairycultist/stablehorde-generator-example/blob/main/index.html
+
+        async function promptImage(key, prompt) {
+
+        }
+        
         async function promptText(key, prompt) {
 
             prompt = prompt.replaceAll("\"", "'");
-            
+
             // https://openrouter.ai/deepseek/deepseek-chat:free/api
             
             const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -44,36 +50,35 @@
         async function generate() {
 
             const generateButton = document.getElementById("generateButton");
-            const key = document.getElementById("key").value;
+            const keyText = document.getElementById("key").value;
 
             generateButton.disabled = true;
 
-            var bio = await promptText(key,
+            const bio = await promptText(keyText,
                 "I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc). Keep it brief but detailed and unique: "
                 + document.getElementById("characterDetails").value
             );
 
-            console.log(bio);
+            {
+                var bioSanitized = bio.replaceAll("\n", "<br>");
+    
+                while (bioSanitized.match(/\*\*([^*]+)\*\*/)) {
+                    bioSanitized = bioSanitized.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
+                }
 
-            var imageGenPrompt = await promptText(key,
+                while (bioSanitized.match(/\*([^*]+)\*/)) {
+                    bioSanitized = bioSanitized.replace(/\*([^*]+)\*/, "<i>$1<\/i>");
+                }
+
+                document.getElementById("bioOutput").innerHTML = "<h2>Character bio</h2>" + bioSanitized;
+            }
+
+            var imageGenPrompt = await promptText(keyText,
                 "I am going to give you a full biography about a character. Please give me a short list of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
                 + bio
             );
 
-            {
-                bio = bio.replaceAll("\n", "<br>");
-    
-                while (bio.match(/\*\*([^*]+)\*\*/)) {
-                    bio = bio.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
-                }
-
-                while (bio.match(/\*(.+)\*/)) {
-                    bio = bio.replace(/\*(.+)\*/, "<i>$1<\/i>");
-                }
-
-                document.getElementById("bioOutput").innerHTML = "<h2>Character bio</h2>" + bio;
-                document.getElementById("imageOutput").innerHTML = "<h2>Image generation prompt</h2>" + imageGenPrompt.replaceAll("*", "");
-            }
+            document.getElementById("imageOutput").innerHTML = "<h2>Image generation prompt</h2>" + imageGenPrompt.replaceAll("*", "");
 
             generateButton.disabled = false;
         }
