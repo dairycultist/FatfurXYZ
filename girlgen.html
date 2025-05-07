@@ -16,10 +16,9 @@
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization: Bearer " + document.getElementById("key").value
+                    "Authorization": "Bearer " + document.getElementById("key").value
                 },
-                body:
-                    `{
+                body: `{
                         "model": "deepseek/deepseek-chat:free",
                         "messages": [
                             {
