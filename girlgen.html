@@ -53,7 +53,7 @@
                 + document.getElementById("characterDetails").value
             );
 
-            document.getElementById("output").innerHTML = bio.replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
+            document.getElementById("output").innerHTML = bio.replaceAll("\n", "<br>").replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
 
             var imageGenPrompt = await promptText(key,
                 "I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
