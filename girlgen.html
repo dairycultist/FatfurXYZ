@@ -6,7 +6,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
         
-        body { font-family: "Inter", sans-serif; }
+        body { font-family: "Inter", sans-serif; display: flex; gap: 1em; }
     </style>
     <script>
 
@@ -53,14 +53,15 @@
                 + document.getElementById("characterDetails").value
             );
 
-            document.getElementById("output").innerHTML = bio.replaceAll("\n", "<br>").replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
+            console.log(bio);
+            document.getElementById("bioOutput").innerHTML = bio.replaceAll("\n", "<br>").replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
 
             var imageGenPrompt = await promptText(key,
-                "I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
+                "I am going to give you a full biography about a character. Please give me a short list of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
                 + bio
             );
 
-            document.getElementById("output").innerHTML += "<h2>Image generation prompt</h2>" + imageGenPrompt;
+            document.getElementById("imageOutput").innerHTML = "<h2>Image generation prompt</h2>" + imageGenPrompt;
 
             generateButton.disabled = false;
         }
@@ -68,15 +69,22 @@
 </head>
 
 <body>
-    <a href="https://github.com/dairycultist/FatfurXYZ/blob/main/girlgen.html">see code</a>
-    <p>
-        <label for="fname"><a href="https://openrouter.ai/">OpenRouter</a> Key:</label>
-        <input type="text" id="key">
-    </p>
-    <textarea id="characterDetails" rows="4" cols="50" placeholder="Describe your character..."></textarea>
-    <button type="button" id="generateButton" onclick="generate();">Generate</button>
+    
+    <div style="flex: 1;">
+        <a href="https://github.com/dairycultist/FatfurXYZ/blob/main/girlgen.html">see code</a>
+        <p>
+            <label for="fname"><a href="https://openrouter.ai/">OpenRouter</a> Key:</label>
+            <input type="text" id="key">
+        </p>
+        <textarea id="characterDetails" rows="4" cols="50" placeholder="Describe your character..."></textarea>
+        <br>
+        <button type="button" id="generateButton" onclick="generate();">Generate</button>
+    </div>
 
-    <div id="output" style="background: #eee; border: 1px solid black; padding: 1em; margin: 1em 0;"></div>
+    <div style="flex: 1;" id="bioOutput" style="background: #eee; border: 1px solid black; padding: 1em; margin: 1em 0;"></div>
+
+    <div style="flex: 1;" id="imageOutput"></div>
+    
 </body>
 
 </html>
