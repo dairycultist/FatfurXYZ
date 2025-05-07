@@ -55,7 +55,7 @@
                 + document.getElementById("characterDetails").value
             );
 
-            document.getElementById("output").innerText = bio.replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
+            document.getElementById("output").innerHTML = bio.replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
 
             generateButton.disabled = false;
         }
