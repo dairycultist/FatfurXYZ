@@ -8,10 +8,53 @@
         
         body { font-family: "Inter", sans-serif; }
     </style>
+    <script>
+
+        function generate() {
+        
+            fetch("https://openrouter.ai/api/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization: Bearer " + document.getElementById("key").value
+                },
+                body:
+                    `{
+                        "model": "deepseek/deepseek-chat:free",
+                        "messages": [
+                            {
+                            "role": "user",
+                            "content": "How was your day?"
+                            }
+                        ]
+                    }`
+            })
+            .then(response => {
+                if (!response.ok) {
+                throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then(responseData => {
+                console.log("Success:", responseData);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+
+        }
+    </script>
 </head>
 
 <body>
     <a href="https://github.com/dairycultist/FatfurXYZ/blob/main/girlgen.html">see code</a>
+    <p>
+        <label for="fname"><a href="https://openrouter.ai/">OpenRouter</a> Key:</label>
+        <input type="text" id="key">
+    </p>
+    <button type="button" onclick="generate();">Generate</button>
+
+    <br><br><br><br><br><br><br>
     <p>https://openrouter.ai/deepseek/deepseek-chat:free/api</p>
     <p>I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc):</p>
     <p>I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual:</p>
