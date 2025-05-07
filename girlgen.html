@@ -51,6 +51,7 @@
 
             const generateButton = document.getElementById("generateButton");
             const keyText = document.getElementById("keyText").value;
+            const keyImage = document.getElementById("keyImage").value;
 
             generateButton.disabled = true;
 
@@ -73,14 +74,14 @@
                 document.getElementById("bioOutput").innerHTML = "<h2>Character bio</h2>" + bioSanitized;
             }
 
-            var imagePrompt = await promptText(keyText,
+            const imagePrompt = (await promptText(keyText,
                 "I am going to give you a full biography about a character. Please give me a short list of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
                 + bio
-            );
+            )).replaceAll("*", "");
 
-            document.getElementById("imagePromptOutput").innerHTML = imagePrompt.replaceAll("*", "");
+            document.getElementById("imagePromptOutput").innerHTML = imagePrompt;
 
-            var imageUrl = await promptImage("", imagePrompt);
+            var imageUrl = await promptImage(keyImage, imagePrompt);
 
             document.getElementById("imageOutput").src = imageUrl;
 
@@ -94,12 +95,12 @@
     <div style="flex: 1;">
         <a href="https://github.com/dairycultist/FatfurXYZ/blob/main/girlgen.html">see code</a>
         <p>
-            <label for="keyImage"><a href="https://stablehorde.net/">AI Horde</a> API Key (optional):</label>
-            <input type="text" id="keyImage">
-        </p>
-        <p>
             <label for="keyText"><a href="https://openrouter.ai/">OpenRouter</a> API Key:</label>
             <input type="text" id="keyText">
+        </p>
+        <p>
+            <label for="keyImage"><a href="https://stablehorde.net/">AI Horde</a> API Key (optional):</label>
+            <input type="text" id="keyImage">
         </p>
         <textarea id="characterDetails" style="width: 100%; height: 10em;" placeholder="Describe your character..."></textarea>
         <br>
