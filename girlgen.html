@@ -54,7 +54,7 @@
             );
 
             console.log(bio);
-            document.getElementById("bioOutput").innerHTML = bio.replaceAll("\n", "<br>").replaceAll(/\*\*(.+)\*\*/g, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/g, "<i>$1<\/i>");
+            document.getElementById("bioOutput").innerHTML = bio.replaceAll("\n", "<br>").replaceAll(/\*\*(.+)\*\*/, "<strong>$1<\/strong>").replaceAll(/\*(.+)\*/, "<i>$1<\/i>");
 
             var imageGenPrompt = await promptText(key,
                 "I am going to give you a full biography about a character. Please give me a short list of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
@@ -81,9 +81,9 @@
         <button type="button" id="generateButton" onclick="generate();">Generate</button>
     </div>
 
-    <div style="flex: 1;" id="bioOutput" style="background: #eee; border: 1px solid black; padding: 1em; margin: 1em 0;"></div>
+    <div id="bioOutput" style="background: #eee; border: 1px solid black; padding: 1em; margin: 1em 0; flex: 1;"></div>
 
-    <div style="flex: 1;" id="imageOutput"></div>
+    <div id="imageOutput" style="flex: 1;"></div>
     
 </body>
 
