@@ -39,12 +39,14 @@
                     }`
             });
 
+            const json = await response.json();
+            console.log(json);
+            
             if (!response.ok) {
-                console.log(await response.json());
                 return "<span style='color: red;'>Network error. See console for details.</span>";
             }
             
-            return (await response.json()).choices[0].message.content;
+            return json.choices[0].message.content;
         }
         
         async function generate() {
