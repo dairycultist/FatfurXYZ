@@ -74,10 +74,10 @@
                 document.getElementById("bioOutput").innerHTML = "<h2>Character bio</h2>" + bioSanitized;
             }
 
-            const imagePrompt = (await promptText(keyText,
+            const imagePrompt = "<lora:HYPv1-2:1> huge boobs, " + (await promptText(keyText,
                 "I am going to give you a full biography about a character. Please give me a short list of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual: "
                 + bio
-            )).replaceAll("*", "");
+            )).replaceAll("*", "").replace(/^.*: /, "");
 
             document.getElementById("imagePromptOutput").innerHTML = imagePrompt;
 
