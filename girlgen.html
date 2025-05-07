@@ -61,7 +61,13 @@
             );
 
             {
-                var bioSanitized = bio.replaceAll("\n", "<br>");
+                var bioSanitized = bio;
+
+                while (bioSanitized.match(/-([^\n]*)\n/)) {
+                    bioSanitized = bioSanitized.replace(/-([^\n]*)\n/, "<ul><li>$1<\/li><\/ul>");
+                }
+
+                bioSanitized = bioSanitized.replaceAll("\n", "<br>");
     
                 while (bioSanitized.match(/\*\*([^*]+)\*\*/)) {
                     bioSanitized = bioSanitized.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
