@@ -63,8 +63,8 @@
             {
                 bio = bio.replaceAll("\n", "<br>");
     
-                while (bio.match(/\*\*(.+)\*\*/)) {
-                    bio = bio.replace(/\*\*(.+)\*\*/, "<strong>$1<\/strong>");
+                while (bio.match(/\*\*([^*]+)\*\*/)) {
+                    bio = bio.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
                 }
 
                 while (bio.match(/\*(.+)\*/)) {
