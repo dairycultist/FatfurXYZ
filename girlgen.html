@@ -10,7 +10,16 @@
     </style>
     <script>
 
+        // I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc):
+        // I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual:
+
         function generate() {
+
+            const generateButton = document.getElementById("generateButton");
+
+            generateButton.disabled = true;
+
+            // https://openrouter.ai/deepseek/deepseek-chat:free/api
         
             fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
@@ -38,9 +47,11 @@
                 document.getElementById("output").innerText = json.choices[0].message.content;
             })
             .catch(error => {
-                console.error("Error: ", error);
+                document.getElementById("output").innerHTML = `<span style="color: red;">Error: ${error}</span>`;
+            })
+            .finally(() => {
+                generateButton.disabled = false;
             });
-
         }
     </script>
 </head>
@@ -51,16 +62,9 @@
         <label for="fname"><a href="https://openrouter.ai/">OpenRouter</a> Key:</label>
         <input type="text" id="key">
     </p>
-    <button type="button" onclick="generate();">Generate</button>
+    <button type="button" id="generateButton" onclick="generate();">Generate</button>
 
-    <div id="output">
-        
-    </div>
-
-    <br><br><br><br><br><br><br>
-    <p>https://openrouter.ai/deepseek/deepseek-chat:free/api</p>
-    <p>I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc):</p>
-    <p>I am going to give you a full biography about a character. Please give me a short, single paragraph of words that describe the character's appearance (their species, height, weight, clothing, emotion, environment, etc) separated by commas. Only include details that are visual:</p>
+    <div id="output" style="background: #eee; border: 1px solid black; padding: 1em; margin: 1em 0;"></div>
 </body>
 
 </html>
