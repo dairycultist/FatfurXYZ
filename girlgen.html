@@ -55,7 +55,7 @@
             generateButton.disabled = true;
 
             const bio = await promptText(keyText,
-                "I am going to give you vague details about a character. Please build on them to provide a full, detailed character background (personality, species, setting, etc). Keep it brief but detailed and unique: "
+                "I am going to give you vague details about a character. Please build on them to provide a full, unique, but short character background (personality, species, setting, etc). Format it as her characteristics plus a few interesting bullet points: "
                 + document.getElementById("characterDetails").value
             );
 
@@ -80,7 +80,7 @@
 
             document.getElementById("imagePromptOutput").innerHTML = imagePrompt.replaceAll("*", "");
 
-            var imageUrl = await promptImage("", "");
+            var imageUrl = await promptImage("", imagePrompt);
 
             document.getElementById("imageOutput").src = imageUrl;
 
