@@ -63,7 +63,7 @@
             {
                 var bioSanitized = bio;
 
-                while (bioSanitized.match(/-([^\n]*)\n/)) {
+                while (bioSanitized.match(/^-([^\n]*)\n$/m)) {
                     bioSanitized = bioSanitized.replace(/-([^\n]*)\n/, "<ul><li>$1<\/li><\/ul>");
                 }
 
