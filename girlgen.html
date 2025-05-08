@@ -110,6 +110,10 @@
                     bioSanitized = bioSanitized.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
                 }
 
+                while (bioSanitized.match("<\/ul>\n")) {
+                    bioSanitized = bioSanitized.replace("<\/ul>\n", "<\/ul>");
+                }
+
                 while (bioSanitized.match(/\*([^*]+)\*/)) {
                     bioSanitized = bioSanitized.replace(/\*([^*]+)\*/, "<i>$1<\/i>");
                 }
