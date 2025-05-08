@@ -6,10 +6,9 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
         
-        body { font-family: "Inter", sans-serif; display: flex; gap: 1em; background: #060608; color: #ddd; }
+        body { font-family: "Inter", sans-serif; display: flex; flex-direction: column; align-items: center; gap: 1em; background: #060608; color: #ddd; }
         input, textarea { background: transparent; font: inherit; color: inherit; border: 1px solid #334; padding: 0.5em; border-radius: 0.5em; box-sizing: border-box; }
         a { color: #08f; }
-        #bioOutput { background: #181824; border-radius: 1em; padding: 2em; line-height: 1.5em; flex: 1; }
     </style>
     <script>
 
@@ -147,7 +146,7 @@
 
 <body>
     
-    <div style="flex: 1;">
+    <div>
         <a href="https://github.com/dairycultist/FatfurXYZ/blob/main/girlgen.html">see code</a>
         <p>
             <label for="keyText"><a href="https://openrouter.ai/">OpenRouter</a> API Key:</label>
@@ -162,11 +161,10 @@
         <button type="button" id="generateButton" onclick="generate();">Generate</button>
     </div>
 
-    <div id="bioOutput"></div>
-
-    <div style="flex: 1;">
-        <img id="imageOutput" style="width: 100%;">
+    <div style="background: #181824; border-radius: 1em; padding: 2em; max-width: 50em;">
         <div id="imagePromptOutput" style="font-family: monospace;"></div>
+        <img id="imageOutput" style="max-width: 50%; float: right;">
+        <div id="bioOutput" style="line-height: 1.5em;"></div>
     </div>
     
 </body>
