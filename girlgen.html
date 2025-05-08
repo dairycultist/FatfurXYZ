@@ -100,20 +100,28 @@
             {
                 var bioSanitized = bio;
 
+                // lists
                 while (bioSanitized.match(/^- *([^ ].*)$/m)) {
                     bioSanitized = bioSanitized.replace(/^- *([^ ].*)$/m, "<ul><li>$1<\/li><\/ul>");
-                }
-
-                bioSanitized = bioSanitized.replaceAll("\n", "<br>");
-    
-                while (bioSanitized.match(/\*\*([^*]+)\*\*/)) {
-                    bioSanitized = bioSanitized.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
                 }
 
                 while (bioSanitized.match("</ul>\n")) {
                     bioSanitized = bioSanitized.replace("</ul>\n", "</ul>");
                 }
 
+                // headers
+                while (bioSanitized.match(/^### *([^ ].*)$/m)) {
+                    bioSanitized = bioSanitized.replace(/^### *([^ ].*)$/m, "<h3>$1</h3>");
+                }
+
+                bioSanitized = bioSanitized.replaceAll("\n", "<br>");
+
+                // bold
+                while (bioSanitized.match(/\*\*([^*]+)\*\*/)) {
+                    bioSanitized = bioSanitized.replace(/\*\*([^*]+)\*\*/, "<strong>$1<\/strong>");
+                }
+
+                // italics
                 while (bioSanitized.match(/\*([^*]+)\*/)) {
                     bioSanitized = bioSanitized.replace(/\*([^*]+)\*/, "<i>$1<\/i>");
                 }
