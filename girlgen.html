@@ -110,7 +110,7 @@
                 }
 
                 // paragraphs
-                while (bioSanitized.match(/^.*$/m)) {
+                while (bioSanitized.match(/^[^<].*$/m)) {
                     bioSanitized = bioSanitized.replace(/^.*$/m, "<p>$1<\/p>");
                 }
 
