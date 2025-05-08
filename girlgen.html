@@ -92,7 +92,7 @@
             generateButton.disabled = true;
 
             const bio = await promptText(keyText,
-                "I am going to give you vague details about a character. Please build on them to provide a full, unique, but short character background (personality, species, setting, etc). Format it as her characteristics plus a few interesting bullet points: "
+                "I am going to give you vague details about a character. Please build on them to provide a unique character background (personality, species, setting, etc). Format it as her characteristics plus a few interesting bullet points. Keep it very short and succinct: "
                 + document.getElementById("characterDetails").value
             );
 
@@ -104,16 +104,17 @@
                     bioSanitized = bioSanitized.replace(/^- *([^ ].*)$/m, "<ul><li>$1<\/li><\/ul>");
                 }
 
-                while (bioSanitized.match("</ul>\n")) {
-                    bioSanitized = bioSanitized.replace("</ul>\n", "</ul>");
-                }
-
                 // headers
                 while (bioSanitized.match(/^### *([^ ].*)$/m)) {
                     bioSanitized = bioSanitized.replace(/^### *([^ ].*)$/m, "<h3>$1</h3>");
                 }
 
-                bioSanitized = bioSanitized.replaceAll("\n", "<br>");
+                // paragraphs
+                while (bioSanitized.match(/^.*$/m)) {
+                    bioSanitized = bioSanitized.replace(/^.*$/m, "<p>$1<\/p>");
+                }
+
+                bioSanitized = bioSanitized.replaceAll("\n", "");
 
                 // bold
                 while (bioSanitized.match(/\*\*([^*]+)\*\*/)) {
@@ -163,6 +164,7 @@
 
     <div style="background: #181824; border-radius: 1em; padding: 2em; max-width: 50em; width: 100%;">
         <div id="imagePromptOutput" style="font-family: monospace; color: #778;"></div>
+        <br>
         <img id="imageOutput" style="max-width: 50%; float: right; margin-left: 1em; border-radius: 0.5em;">
         <div id="bioOutput" style="line-height: 1.5em;"></div>
     </div>
