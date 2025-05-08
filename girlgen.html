@@ -41,8 +41,8 @@
 
             for (const part of parts) {
 
-                if (part.mimeType === "image/png") {
-                    return "data:image/png;base64, " + part.data;
+                if (part.inlineData.mimeType === "image/png") {
+                    return "data:image/png;base64, " + part.inlineData.data;
                 }
             }
 
