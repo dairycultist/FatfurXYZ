@@ -19,7 +19,7 @@
 
         // populate
         for (let i=0; i<20; i++)
-            world.innerHTML += `<div style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
+            world.innerHTML += `<div data-state="${ Math.random() * 2 - 1 }" style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
         
         setInterval(() => {
 
@@ -55,10 +55,10 @@
                 let diffX = averageX - x;
                 let diffY = averageY - y;
 
-                let dirMag = magnitude(diffX, diffY);
+                let fac = particle.getAttribute("data-state") / magnitude(diffX, diffY);
 
-                particle.style.left = diffX / dirMag + x + "px";
-                particle.style.top  = diffY / dirMag + y + "px";
+                particle.style.left = diffX * fac + x + "px";
+                particle.style.top  = diffY * fac + y + "px";
             }
             
         }, 1000 / 60); // ms
