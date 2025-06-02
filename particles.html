@@ -19,8 +19,8 @@
             return x < 0 ? 0 : x > 1000 ? 1000 : x;
         }
 
-        function stateFunction(state) {
-            return 2 / (1 + Math.pow(Math.E, 5 * state)) - 1;
+        function stateFunction(currState, neighborState) {
+            return currState * 0.95 + (2 / (1 + Math.pow(Math.E, 5 * neighborState)) - 1) * 0.05;
         }
 
         const world = document.getElementById("world");
@@ -43,7 +43,7 @@
                 let averageY = 0;
                 let totalWeight = 0;
 
-                let newState = Number(particle.getAttribute("data-state"));
+                let newState = 0;
 
                 for (const other of world.children) {
 
@@ -64,9 +64,10 @@
                 averageX /= totalWeight;
                 averageY /= totalWeight;
 
-                newState /= (totalWeight + 1); // +1 to account for including self in weight
-                newState = stateFunction(newState);
+                newState /= totalWeight;
+                newState = stateFunction(Number(particle.getAttribute("data-state")), newState);
                 particle.setAttribute("data-state", newState);
+                particle.style.filter = `brightness(${ 100 + newState * 30 }%);`;
                 
                 let diffX = averageX - x;
                 let diffY = averageY - y;
