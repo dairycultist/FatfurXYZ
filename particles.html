@@ -23,26 +23,36 @@
         
         setInterval(() => {
 
+            // since there's no buffer, we may want to update in a random order each tick
             for (const particle of world.children) {
 
                 // move in direction of weighted average position of all other particles
 
-                let averageX = 0;
-                let averageY = 0;
-
-                // for (const other of world.children) {
-
-                //     if (particle === other)
-                //         continue;
-
-                    
-                // }
-
                 let x = pxToNum(particle.style.left);
                 let y = pxToNum(particle.style.top);
+                
+                let averageX = 0;
+                let averageY = 0;
+                let weight = 0;
 
-                let diffX = x - averageX;
-                let diffY = y - averageY;
+                for (const other of world.children) {
+
+                    if (particle === other)
+                        continue;
+
+                    let otherX = pxToNum(other.style.left);
+                    let otherY = pxToNum(other.style.top);
+                    
+                    weight += 1 / (1 + magnitude(x - otherX, y - otherY));
+                    averageX += otherX;
+                    averageY += otherY;
+                }
+
+                averageX /= weight;
+                averageY /= weight;
+
+                let diffX = averageX - x;
+                let diffY = averageY - y;
 
                 let dirMag = magnitude(diffX, diffY);
 
