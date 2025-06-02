@@ -6,8 +6,10 @@
     <script type="module">
 
         const world = document.getElementById("world");
-            
-        world.innerHTML += `<div style="top: ${ Math.random() * 100 }; left: ${ Math.random() * 100 };"></div>`;
+
+        // populate
+        for (let i=0; i<20; i++)
+            world.innerHTML += `<div style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
         
     </script>
     <style>
