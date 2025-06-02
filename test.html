@@ -21,9 +21,9 @@
             return x < 0 ? 0 : x > 1000 ? 1000 : x;
         }
 
-        function neighborWeightToSpeedFunction(weight) {
+        function speedFunction(value) {
 
-            return 2 / (1 + Math.pow(Math.E, weight - weightThreshhold)) - 1;
+            return 2 / (1 + Math.pow(Math.E, value - weightThreshhold)) - 1;
         }
 
         function updateWeightThreshhold(value) {
@@ -70,8 +70,9 @@
                     
                     let diffX = averageX - x;
                     let diffY = averageY - y;
+                    let distance = magnitude(diffX, diffY);
     
-                    let fac = neighborWeightToSpeedFunction(totalWeight) / magnitude(diffX, diffY);
+                    let fac = speedFunction((totalWeight * weightThreshhold + distance) / 2) / distance;
     
                     particle.style.left = clampToWorld(diffX * fac + x) + "px";
                     particle.style.top  = clampToWorld(diffY * fac + y) + "px";
