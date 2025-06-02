@@ -10,6 +10,15 @@
         // populate
         for (let i=0; i<20; i++)
             world.innerHTML += `<div style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
+
+        setInterval(() => {
+
+            for (const child of world.children) {
+
+                child.style.top = (child.style.top.substring(0, child.style.top.length - 2) + 1) + "px";
+            }
+            
+        }, 1000 / 60); // ms
         
     </script>
     <style>
