@@ -5,6 +5,16 @@
     <title>particle test</title>
     <script type="module">
 
+        function pxToNum(px) {
+
+            return Number(px.substring(0, px.length - 2));
+        }
+
+        function magnitude(x, y) {
+
+            return Math.sqrt(x * x + y * y);
+        }
+
         const world = document.getElementById("world");
 
         // populate
@@ -13,9 +23,28 @@
         
         setInterval(() => {
 
-            for (const child of world.children) {
+            for (const particle of world.children) {
 
-                child.style.top = 1 + Number(child.style.top.substring(0, child.style.top.length - 2)) + "px";
+                // move in direction of weighted average position of all other particles
+
+                let averageX = 0;
+                let averageY = 0;
+
+                // for (const other of world.children) {
+
+                //     if (particle === other)
+                //         continue;
+
+                    
+                // }
+
+                let x = pxToNum(child.style.left);
+                let y = pxToNum(child.style.top);
+
+                let dirMag = magnitude(x - averageX, y - averageY);
+
+                child.style.left = (averageX - x) / dirMag + x + "px";
+                child.style.top  = (averageY - y) / dirMag + y + "px";
             }
             
         }, 1000 / 60); // ms
