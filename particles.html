@@ -10,16 +10,12 @@
         // populate
         for (let i=0; i<20; i++)
             world.innerHTML += `<div style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
-
-        for (const child of world.children) {
-            console.log((child.style.top.substring(0, child.style.top.length - 2) + 10) + "px");
-        }
         
         setInterval(() => {
 
             for (const child of world.children) {
 
-                child.style.top = "100px";
+                child.style.top = (10 + child.style.top.substring(0, child.style.top.length - 2)) + "px";
             }
             
         }, 1000); // ms
