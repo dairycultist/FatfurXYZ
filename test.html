@@ -56,7 +56,7 @@
 
                     let otherX = pxToNum(other.style.left);
                     let otherY = pxToNum(other.style.top);
-                    let otherWeight = 1 / (1 + magnitude(x - otherX, y - otherY));
+                    let otherWeight = 1 / (1 + magnitude(x - otherX, y - otherY) / 100);
                     
                     averageX += otherX * otherWeight;
                     averageY += otherY * otherWeight;
