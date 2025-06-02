@@ -43,7 +43,7 @@
                 let averageY = 0;
                 let totalWeight = 0;
 
-                let newState = particle.getAttribute("data-state");
+                let newState = Number(particle.getAttribute("data-state"));
 
                 for (const other of world.children) {
 
