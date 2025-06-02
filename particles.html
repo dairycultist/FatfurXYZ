@@ -38,13 +38,16 @@
                     
                 // }
 
-                let x = pxToNum(child.style.left);
-                let y = pxToNum(child.style.top);
+                let x = pxToNum(particle.style.left);
+                let y = pxToNum(particle.style.top);
 
-                let dirMag = magnitude(x - averageX, y - averageY);
+                let diffX = x - averageX;
+                let diffY = y - averageY;
 
-                child.style.left = (averageX - x) / dirMag + x + "px";
-                child.style.top  = (averageY - y) / dirMag + y + "px";
+                let dirMag = magnitude(diffX, diffY);
+
+                particle.style.left = diffX / dirMag + x + "px";
+                particle.style.top  = diffY / dirMag + y + "px";
             }
             
         }, 1000 / 60); // ms
