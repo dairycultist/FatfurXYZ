@@ -20,7 +20,7 @@
         }
 
         function stateFunction(state) {
-            return state;
+            return 1 / (1 + Math.pow(Math.E, 5 * state));
         }
 
         const world = document.getElementById("world");
