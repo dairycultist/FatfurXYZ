@@ -5,17 +5,21 @@
     <title>particle test</title>
     <script type="module">
 
-        document.getElementById("world").innerHTML = "cat";
+        const world = document.getElementById("world");
+            
+        world.innerHTML += `<div style="top: ${ Math.random() * 100 }; left: ${ Math.random() * 100 };"></div>`;
         
     </script>
+    <style>
+        #world { position: relative; }
+        #world div { border: 10px solid red; border-radius: 100%; position: absolute; }
+    </style>
 </head>
 <body>
     <p>each particle has a state between [-1.0,1.0]</p>
     <p>negative particles move away from other particles, positive particles move towards other particles</p>
     <p>at every step, each particle samples all the particles in its neighborhood (including itself, following some kernel) to derive an average value, which is inputted into a function to derive its next state</p>
     <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Peek_2021-10-12_22-29.gif">
-    <div id="world">
-        
-    </div>
+    <div id="world"></div>
 </body>
 </html>
