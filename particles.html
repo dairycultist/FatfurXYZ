@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>particle test</title>
+    <script type="module">
+
+        document.getElementById("world").innerHTML = "cat";
+        
+    </script>
+</head>
+<body>
+    <p>each particle has a state between [-1.0,1.0]</p>
+    <p>negative particles move away from other particles, positive particles move towards other particles</p>
+    <p>at every step, each particle samples all the particles in its neighborhood (including itself, following some kernel) to derive an average value, which is inputted into a function to derive its next state</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Peek_2021-10-12_22-29.gif">
+    <div id="world">
+        
+    </div>
+</body>
+</html>
