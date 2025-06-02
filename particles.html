@@ -20,7 +20,7 @@
         }
 
         function stateFunction(currState, neighborState) {
-            return currState * 0.95 + (2 / (1 + Math.pow(Math.E, 5 * neighborState)) - 1) * 0.05;
+            return currState * 0.95 + (6 / (1 + Math.pow(Math.E, 5 * neighborState)) + 4 / (1 + Math.pow(Math.E, -20 * neighborState)) - 5) * 0.05;
         }
 
         const world = document.getElementById("world");
