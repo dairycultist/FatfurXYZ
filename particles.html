@@ -19,19 +19,18 @@
             return x < 0 ? 0 : x > 1000 ? 1000 : x;
         }
 
-        function stateFunction(currState, neighborState) {
-            return currState * 0.95 + (6 / (1 + Math.pow(Math.E, 5 * neighborState)) + 4 / (1 + Math.pow(Math.E, -20 * neighborState)) - 5) * 0.05;
+        function distToSpeedFunction(dist) {
+            return 1;
         }
 
         const world = document.getElementById("world");
 
         // populate
         for (let i=0; i<20; i++)
-            world.innerHTML += `<div data-state="${ Math.random() * 2 - 1 }" style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
+            world.innerHTML += `<div style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
         
         setInterval(() => {
 
-            // since there's no buffer, we may want to update in a random order each tick idk
             for (const particle of world.children) {
 
                 // move in direction of weighted average position of all other particles
@@ -42,8 +41,6 @@
                 let averageX = 0;
                 let averageY = 0;
                 let totalWeight = 0;
-
-                let newState = 0;
 
                 for (const other of world.children) {
 
@@ -57,22 +54,16 @@
                     averageX += otherX * otherWeight;
                     averageY += otherY * otherWeight;
                     totalWeight += otherWeight;
-
-                    newState += other.getAttribute("data-state") * otherWeight;
                 }
 
                 averageX /= totalWeight;
                 averageY /= totalWeight;
-
-                newState /= totalWeight;
-                newState = stateFunction(Number(particle.getAttribute("data-state")), newState);
-                particle.setAttribute("data-state", newState);
-                particle.style.filter = `brightness(${ 100 + newState * 30 }%);`;
                 
                 let diffX = averageX - x;
                 let diffY = averageY - y;
+                let distance = magnitude(diffX, diffY);
 
-                let fac = newState / magnitude(diffX, diffY);
+                let fac = distToSpeedFunction(distance) / distance;
 
                 particle.style.left = clampToWorld(diffX * fac + x) + "px";
                 particle.style.top  = clampToWorld(diffY * fac + y) + "px";
