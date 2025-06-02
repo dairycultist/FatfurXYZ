@@ -13,12 +13,14 @@
 
         setInterval(() => {
 
+            console.log("beep");
+
             for (const child of world.children) {
 
-                child.style.top = (child.style.top.substring(0, child.style.top.length - 2) + 1) + "px";
+                child.style.top = (child.style.top.substring(0, child.style.top.length - 2) + 10) + "px";
             }
             
-        }, 1000 / 60); // ms
+        }, 1000); // ms
         
     </script>
     <style>
