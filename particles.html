@@ -15,7 +15,7 @@
 
             for (const child of world.children) {
 
-                child.style.top = (10 + child.style.top.substring(0, child.style.top.length - 2)) + "px";
+                child.style.top = 10 + Number(child.style.top.substring(0, child.style.top.length - 2)) + "px";
             }
             
         }, 1000); // ms
