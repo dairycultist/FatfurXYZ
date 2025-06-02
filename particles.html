@@ -20,7 +20,7 @@
         }
 
         function distToSpeedFunction(dist) {
-            return 2 / (1 + Math.pow(Math.E, 20 - dist)) - 1;
+            return 2 / (1 + Math.pow(Math.E, (50 - dist) / 10)) - 1;
         }
 
         const world = document.getElementById("world");
