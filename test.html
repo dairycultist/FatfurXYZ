@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>particle test</title>
+    <script type="module">
+
+        function pxToNum(px) {
+
+            return Number(px.substring(0, px.length - 2));
+        }
+
+        function magnitude(x, y) {
+
+            return Math.sqrt(x * x + y * y);
+        }
+
+        function clampToWorld(x) {
+            return x < 0 ? 0 : x > 1000 ? 1000 : x;
+        }
+
+        function neighborWeightToSpeedFunction(weight) {
+
+            if (weight < 2)
+                return 1;
+
+            if (weight > 3)
+                return -1;
+
+            return 0;
+        }
+
+        const world = document.getElementById("world");
+
+        // populate
+        for (let i=0; i<20; i++)
+            world.innerHTML += `<div style="top: ${ Math.random() * 1000 }px; left: ${ Math.random() * 1000 }px;"></div>`;
+        
+        setInterval(() => {
+
+            for (const particle of world.children) {
+
+                // move in direction of weighted average position of all other particles
+
+                let x = pxToNum(particle.style.left);
+                let y = pxToNum(particle.style.top);
+                
+                let averageX = 0;
+                let averageY = 0;
+                let totalWeight = 0;
+
+                for (const other of world.children) {
+
+                    if (particle === other)
+                        continue;
+
+                    let otherX = pxToNum(other.style.left);
+                    let otherY = pxToNum(other.style.top);
+                    let otherWeight = 1 / (1 + magnitude(x - otherX, y - otherY));
+                    
+                    averageX += otherX * otherWeight;
+                    averageY += otherY * otherWeight;
+                    totalWeight += otherWeight;
+                }
+
+                averageX /= totalWeight;
+                averageY /= totalWeight;
+                
+                let diffX = averageX - x;
+                let diffY = averageY - y;
+
+                let fac = neighborWeightToSpeedFunction(totalWeight) / magnitude(diffX, diffY);
+
+                particle.style.left = clampToWorld(diffX * fac + x) + "px";
+                particle.style.top  = clampToWorld(diffY * fac + y) + "px";
+            }
+            
+        }, 1000 / 60); // ms
+        
+    </script>
+    <style>
+        #world { position: relative; }
+        #world div { border: 10px solid red; border-radius: 100%; position: absolute; }
+    </style>
+</head>
+<body>
+    <p>each particle has a state between [-1.0,1.0]</p>
+    <p>negative particles move away from other particles, positive particles move towards other particles</p>
+    <p>at every step, each particle samples all the particles in its neighborhood (including itself, following some kernel) to derive an average value, which is inputted into a function to derive its next state</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Peek_2021-10-12_22-29.gif">
+    <div id="world"></div>
+</body>
+</html>
