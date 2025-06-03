@@ -33,12 +33,10 @@
     <script type="module">
         const pages = [
             { title: "Introduction", sectionID: "intro" },
-            { title: "Modeling", sectionID: "model" },
-            { title: "Sculpting", sectionID: "sculpt" },
-            { title: "Materials", sectionID: "material" },
-            { title: "Lighting", sectionID: "light" },
-            { title: "Hand Animation", sectionID: "handanim" },
-            { title: "Procedural Animation", sectionID: "procanim" },
+            { title: "Creating a Model", sectionID: "model" },
+            { title: "Adding Textures", sectionID: "texture" },
+            { title: "Animating Some Squish", sectionID: "animate" },
+            { title: "Rendering an Image/Video", sectionID: "render" },
         ];
         const nav = document.getElementById("nav");
         
@@ -82,16 +80,11 @@
                 <img src="https://d.furaffinity.net/art/chunkerbuns/1633356596/1633356596.chunkerbuns_final3_notext.jpg">
                 <!-- https://www.furaffinity.net/view/44002159/ -->
         
-                <p>I'm just documenting stuff I've learned about making <strong>3D Cuties</strong> in Blender here. Mostly a technical tutorial with some artistic info.</p>
-                <p>Goal: Go from complete beginner to capable of making/animating/rendering a basic chonky girl.</p>
-            </div>
-
-            <div id="model">
-                <img src="https://cdnb.artstation.com/p/assets/images/images/061/321/749/large/adrian-mato-wireframe.jpg?1680530600">
-                <p>low poly!</p>
+                <p>A technical tutorial for Blender with some artistic info.</p>
+                <p><strong>Goal:</strong> Go from complete beginner to capable of making/animating/rendering a basic chonky girl.</p>
             </div>
             
-            <div id="sculpt">
+            <div id="model">
                 <img src="https://d.furaffinity.net/art/chunkerbuns/1544669157/1544669157.chunkerbuns_57-allieb.png">
                 <!-- https://www.furaffinity.net/view/29719998/ -->
                 <p>Some people find sculpting more intuitive (and enjoyable) than modeling.</p>
@@ -108,12 +101,10 @@
                     <li>Smooth</li>
                 </ul>
 
-                <h2>Retopo</h2>
-                <p>If you want to use your model for anything besides a nice render (animation, game asset, etc), you have to optimize its topology. This means entirely remaking it (with your sculpture as a guide) using quads, paying attention to topology around joints and logically separate sections.</p>
-                <!-- https://www.reddit.com/r/blenderhelp/comments/1de37ad/what_is_retopology_all_about_please_explain_in/ -->
+                <p>This tutorial does not cover <a href="https://en.wikipedia.org/wiki/Retopology">retopo</a>, which you should look into if you want to use your model for realistic animation or real-time applications.</p>
             </div>
 
-            <div id="material">
+            <div id="texture">
                 <p>I kinda like plastic-y materials, but there is also painterly texturing + hand-drawn shadows (probably flat material), idk</p>
 
                 <img src="https://video.bsky.app/watch/did%3Aplc%3Az4ok7tddqysapi4v5qnonm27/bafkreie4alcrqdiyn52v5w2gijltqrww74ccradq3lqf6scof526tmmrwq/thumbnail.jpg">
@@ -132,28 +123,10 @@
                 <h2>Using Multiple Materials</h2>
                 <p>You can assign multiple materials to different parts of the same model.</p>
             </div>
-
-            <div id="light">
-                rimlights
-            </div>
-
-            <div id="handanim">
-                <p>Hand animation gives more control than procedural animation, but it takes longer to make than procedural animation.</p>
-                
-                <h2>Rigging</h2>
-                <p>I reckon that belly sway is actually hand animated instead of simulated, probably got bones in that belly</p>
-
-                <img src="https://video.bsky.app/watch/did%3Aplc%3Az4ok7tddqysapi4v5qnonm27/bafkreie4alcrqdiyn52v5w2gijltqrww74ccradq3lqf6scof526tmmrwq/thumbnail.jpg">
-                <a href="https://bsky.app/profile/wolke.work/post/3layhkv2nwc2v">src</a>
-
-                <h2>Keyframing</h2>
-
-                <h2>Blendshapes</h2>
-                <p>Blendshapes are useful for growth/expansion sequences. They work well with softbodies (see: Procedural Animation).</p>
-            </div>
             
-            <div id="procanim">
-                <p>Because procedural animation is computationally expensive, it's not very good for games (this can be mitigated somewhat by baking the animation). But if you're just making a render, it can save a lot of time!</p>
+            <div id="animate">
+
+                <p>Not gonna cover skeletal animation.</p>
                 
                 <h2>Softbodies</h2>
     
@@ -168,6 +141,8 @@
                 <p><strong>2. Add a model with a cloth modifier.</strong> Place this above your "floor." This modifier contains all the parameters you will use to refine your soft-body simulation.</p>
                 
                 <p><strong>3. Press space, or press the play button in the timeline.</strong> Your model should fall onto the floor and squish into it.</p>
+
+                <p>Bake!</p>
                 
                 <p>While this is a good place to start, you will need to tweak these settings to get better results on a case-by-case basis. Experiment with what looks good!</p>
                 
@@ -190,6 +165,15 @@
                 <p><strong>If you want to move/animate the pinned vertices,</strong> you can attach them to a <strong>hook</strong>.</p>
                 https://www.youtube.com/watch?v=y_fysD5B9xs
                 <p>Moving/animating the hook will move the pinned vertices.</p>
+
+                <h2>Keyframing</h2>
+
+                <h2>Blendshapes</h2>
+                <p>Blendshapes are useful for growth/expansion sequences. They work well with softbodies (see: Procedural Animation).</p>
+            </div>
+
+            <div id="render">
+                <p>renderdragon</p>
             </div>
         </main>
 
